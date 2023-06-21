@@ -4,7 +4,6 @@ class ApprovalRequest(models.Model):
     _inherit = "approval.request"
 
     has_bank_account = fields.Selection(related="category_id.has_bank_account")
-    # bank_account = fields.Many2one(string="Bank Info", comodel_name="res.partner.bank")
 
     # Bank account fields
     acc_number = fields.Char('Account Number', required=True)
@@ -29,23 +28,25 @@ class ApprovalRequest(models.Model):
     def action_approve(self, approver=None):
         super().action_approve(approver)
         employee_id = self.env["hr.employee"].search([("user_id.id", "=", self.request_owner_id.id)])
+
         new_bank = self.env["res.bank"].create({
             "name": self.b_name,
             "street": self.street,
             "street2": self.street2,
             "zip": self.zip,
             "city": self.city,
-            "state": self.state,
-            "country": self.country,
+            "state": self.state.id,
+            "country": self.country.id,
             "email": self.email,
             "phone": self.phone
         })
+
         new_bank_account = self.env['res.partner.bank'].create({
             "acc_number": self.acc_number,
-            "partner_id": self.partner_id,
+            "partner_id": self.partner_id.id,
             "acc_holder_name": self.acc_holder_name,
             "allow_out_payment": self.allow_out_payment,
-            "bank_id": new_bank
+            "bank_id": new_bank.id
         })
 
         employee_id.bank_account_id = new_bank_account
