@@ -11,19 +11,16 @@
             </field>
             <xpath expr="//group[@name='request_main']/parent::group" position="after">
                 <group class="mt-3">
-                    <!-- <div class="mt-3"> -->
-                        <group attrs="{'invisible':[('has_bank_account','==','no')]}" class="d-flex flex-column">
-                            <h2 class="mb-3 w-100">Account Information</h2>
-                            <group class="w-100">
+                    <group attrs="{'invisible':[('has_bank_account','==','no')]}" class="d-flex flex-column">
+                        <h2 class="mb-3 w-100">Account Information</h2>
+                        <group class="w-100">
                             <field name="acc_number" attrs="{'required': [('has_bank_account','==','required')]}"/>
                             <field name="partner_id" attrs="{'required': [('has_bank_account','==','required')]}"/>
                             <field name="acc_holder_name" attrs="{'required': [('has_bank_account','==','required')]}"/>
                             <field name="allow_out_payment" attrs="{'invisible': True}"/>
-                            </group>
                         </group>
-                    <!-- </div> -->
-                    <!-- <div class="mt-3"> -->
-                        <group class="d-flex flex-column">
+                    </group>
+                    <group class="d-flex flex-column">
                         <h2 class="mb-3 w-100">Bank Information</h2>
                         <group class="w-100">
                             <field name="b_name" attrs="{'required': [('has_bank_account','==','required')]}"/>
@@ -41,11 +38,9 @@
                             </div>
                             <field name="phone" attrs="{'required': [('has_bank_account','==','required')]}"/>
                             <field name="email" attrs="{'required': [('has_bank_account','==','required')]}"/>
-                            </group>
                         </group>
-                    <!-- </div> -->
+                    </group>
                 </group>
-
             </xpath>
         </field>
     </record>
