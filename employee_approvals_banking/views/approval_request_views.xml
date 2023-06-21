@@ -9,8 +9,43 @@
             <field name="has_product" position="after">
                 <field name="has_bank_account" invisible="0"/>
             </field>
-            <xpath expr="//group[@name='request_main']" position="inside">
-                <field name="bank_account" attrs="{'invisible':[('has_bank_account','==','no')], 'required': [('has_bank_account','==','required')]}"/>
+            <xpath expr="//group[@name='request_main']/parent::group" position="after">
+                <group class="mt-3">
+                    <!-- <div class="mt-3"> -->
+                        <group attrs="{'invisible':[('has_bank_account','==','no')]}" class="d-flex flex-column">
+                            <h2 class="mb-3 w-100">Account Information</h2>
+                            <group class="w-100">
+                            <field name="acc_number" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <field name="partner_id" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <field name="acc_holder_name" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <field name="allow_out_payment" attrs="{'invisible': True}"/>
+                            </group>
+                        </group>
+                    <!-- </div> -->
+                    <!-- <div class="mt-3"> -->
+                        <group class="d-flex flex-column">
+                        <h2 class="mb-3 w-100">Bank Information</h2>
+                        <group class="w-100">
+                            <field name="b_name" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <field name="bic" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <span class="o_form_label o_td_label" name="address_name">
+                                <b>Bank Address</b>
+                            </span>
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street" attrs="{'required': [('has_bank_account','==','required')]}" class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2" class="o_address_street"/>
+                                <field name="city" placeholder="City" attrs="{'required': [('has_bank_account','==','required')]}" class="o_address_city"/> 
+                                <field name="state" placeholder="State" attrs="{'required': [('has_bank_account','==','required')]}" class="o_address_state"/>
+                                <field name="zip" placeholder="ZIP" attrs="{'required': [('has_bank_account','==','required')]}" class="o_address_zip"/>
+                                <field name="country" placeholder="Country" attrs="{'required': [('has_bank_account','==','required')]}" class="o_address_country"/>
+                            </div>
+                            <field name="phone" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            <field name="email" attrs="{'required': [('has_bank_account','==','required')]}"/>
+                            </group>
+                        </group>
+                    <!-- </div> -->
+                </group>
+
             </xpath>
         </field>
     </record>
